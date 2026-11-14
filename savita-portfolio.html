@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Savita Gundikeri — beginner web developer portfolio.">
+  <title>Savita Gundikeri | Web Developer</title>
+  <style>
+    :root {
+      --navy: #0b1224;
+      --navy-soft: #111d35;
+      --orange: #ff8a3d;
+      --orange-light: #ffb178;
+      --text: #f4f6fb;
+      --muted: #aab4c8;
+      --line: rgba(255,255,255,.11);
+      --card: rgba(255,255,255,.055);
+      --max: 1080px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(11,18,36,.9); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -.04em; }
+    .brand span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: .94rem; transition: color .2s; }
+    .nav-links a:hover, .nav-links a:focus { color: var(--orange); }
+    .menu-toggle {
+      display: none; border: 1px solid var(--line); color: var(--text);
+      background: var(--card); border-radius: 10px; padding: 8px 11px; font-size: 1.2rem; cursor: pointer;
+    }
+    .hero { min-height: 78vh; display: grid; align-items: center; padding: 90px 0 80px; }
+    .eyebrow { color: var(--orange-light); text-transform: uppercase; letter-spacing: .16em; font-size: .78rem; font-weight: 800; }
+    h1 { font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.04; letter-spacing: -.065em; margin: 18px 0; max-width: 820px; }
+    h1 span { color: var(--orange); }
+    .hero-copy { color: var(--muted); font-size: clamp(1rem, 2vw, 1.18rem); max-width: 620px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+    .btn { display: inline-flex; justify-content: center; align-items: center; padding: 12px 20px; border-radius: 10px; font-weight: 750; transition: transform .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--orange); color: #1b1720; }
+    .btn-outline { border: 1px solid var(--line); color: var(--text); }
+    section { padding: 82px 0; }
+    .section-kicker { color: var(--orange); font-size: .78rem; text-transform: uppercase; letter-spacing: .15em; font-weight: 800; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -.045em; margin: 9px 0 28px; }
+    .about-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: start; }
+    .about-text { color: var(--muted); max-width: 680px; }
+    .note { padding: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; }
+    .note strong { display: block; color: var(--orange-light); margin-bottom: 6px; }
+    .skills { display: flex; flex-wrap: wrap; gap: 12px; }
+    .skill { border: 1px solid rgba(255,138,61,.28); background: rgba(255,138,61,.08); color: #ffd0b0; padding: 9px 15px; border-radius: 999px; font-size: .93rem; }
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project-card { padding: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; min-height: 230px; display: flex; flex-direction: column; }
+    .project-number { color: var(--orange); font-weight: 800; font-size: .85rem; }
+    .project-card h3 { font-size: 1.2rem; margin: 18px 0 9px; }
+    .project-card p { color: var(--muted); font-size: .94rem; flex: 1; }
+    .project-tag { color: var(--orange-light); font-size: .82rem; margin-top: 18px; }
+    .contact-panel { padding: clamp(24px, 5vw, 48px); background: linear-gradient(135deg, #152543, #101a30); border: 1px solid var(--line); border-radius: 20px; }
+    .contact-panel p { color: var(--muted); max-width: 600px; }
+    .email-link { display: inline-block; color: var(--orange-light); font-weight: 750; margin-top: 18px; overflow-wrap: anywhere; }
+    footer { padding: 26px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; text-align: center; }
+    @media (max-width: 760px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none; position: absolute; top: 72px; left: 0; right: 0;
+        padding: 18px 20px 22px; background: #0e1930; border-bottom: 1px solid var(--line);
+        flex-direction: column; align-items: flex-start; gap: 16px;
+      }
+      .nav-links.open { display: flex; }
+      .hero { min-height: 70vh; padding: 72px 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 22px; }
+      .project-grid { grid-template-columns: 1fr; }
+      section { padding: 65px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#home">SAVITA<span>.</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" id="home">
+      <div>
+        <p class="eyebrow">Hello, welcome to my portfolio</p>
+        <h1>I'm Savita <span>Gundikeri.</span><br>Learning to build for the web.</h1>
+        <p class="hero-copy">I'm a beginner web developer with a foundation in HTML and CSS. I enjoy creating clean, responsive websites and learning something new with every project.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#projects">Explore my work</a>
+          <a class="btn btn-outline" href="#contact">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <p class="section-kicker">A little about me</p>
+        <h2>About me</h2>
+        <div class="about-grid">
+          <p class="about-text">Hi! I'm Savita Gundikeri. I'm at the beginning of my web development journey and currently building my skills in HTML and CSS. I like turning ideas into simple, attractive web pages, paying attention to layout and details, and making designs work well on mobile devices. I'm excited to keep learning and take on new challenges.</p>
+          <div class="note">
+            <strong>My current focus</strong>
+            <p class="about-text">Strengthening my HTML and CSS fundamentals, practising responsive layouts, and gradually learning JavaScript.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <p class="section-kicker">What I'm learning</p>
+        <h2>Skills</h2>
+        <div class="skills">
+          <span class="skill">HTML5</span>
+          <span class="skill">CSS3</span>
+          <span class="skill">Responsive Design</span>
+          <span class="skill">Flexbox</span>
+          <span class="skill">CSS Grid</span>
+          <span class="skill">Basic Web Design</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <p class="section-kicker">Practice and progress</p>
+        <h2>Projects</h2>
+        <div class="project-grid">
+          <article class="project-card">
+            <span class="project-number">PROJECT 01</span>
+            <h3>Personal Portfolio</h3>
+            <p>A simple personal website to introduce myself, share my skills, and make it easy for people to contact me.</p>
+            <span class="project-tag">HTML · CSS</span>
+          </article>
+          <article class="project-card">
+            <span class="project-number">PROJECT 02</span>
+            <h3>Responsive Landing Page</h3>
+            <p>A practice landing page with a clear content structure and a layout designed to adapt to smaller screens.</p>
+            <span class="project-tag">HTML · CSS · Flexbox</span>
+          </article>
+          <article class="project-card">
+            <span class="project-number">PROJECT 03</span>
+            <h3>Styled Profile Card</h3>
+            <p>A compact profile card exploring typography, spacing, colour, borders, and reusable CSS styling.</p>
+            <span class="project-tag">HTML · CSS · UI Practice</span>
+          </article>
+        </div>
+        <p style="color:var(--muted);font-size:.88rem;margin-top:18px;">Tip: Replace these sample project descriptions with your real projects, screenshots, and live links as you complete them.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <p class="section-kicker">Let's connect</p>
+          <h2>Have a project or opportunity?</h2>
+          <p>I'd be happy to hear from you. Send me an email and let's connect.</p>
+          <a class="email-link" href="mailto:savitagundikeri2008@gmail.com">savitagundikeri2008@gmail.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Savita Gundikeri. Built with HTML &amp; CSS.</div>
+  </footer>
+
+  <script>
+    // Mobile navigation: open/close the menu and close it after choosing a section.
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+      menuToggle.textContent = isOpen ? '✕' : '☰';
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        menuToggle.textContent = '☰';
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
